@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.edu.ifpb.memoriam.entity.Contato;
+import br.edu.ifpb.memoriam.entity.Operadora;
 import br.edu.ifpb.memoriam.facade.ContatoController;
+import br.edu.ifpb.memoriam.facade.OperadoraController;
 import br.edu.ifpb.memoriam.facade.Resultado;
 
 /**
@@ -37,7 +39,9 @@ public class FrontControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		ContatoController contatoCtrl = new ContatoController();
+		OperadoraController operadoraCtrl = new OperadoraController();
 		String proxPagina = null;
+		String id;
 		this.getServletContext().removeAttribute("msgs");
 		String operacao = request.getParameter("op");
 		switch (operacao) {
@@ -46,7 +50,27 @@ public class FrontControllerServlet extends HttpServlet {
 			request.setAttribute("contatos", contatos);
 			proxPagina = "contato/consulta.jsp";
 			break;
+			
+		case "edtope":
+			id = request.getParameter("id");
+			Operadora operadora = operadoraCtrl.buscar(Integer.parseInt(id));
+			request.setAttribute("operadora", operadora);
+			proxPagina = "operadora/editar.jsp";
+			break;
+			
+		case "edtctt":
+			id = request.getParameter("id");
+			Contato contato = contatoCtrl.buscar(Integer.parseInt(id));
+			request.setAttribute("contato", contato);
+			proxPagina = "contato/editar.jsp";
+			break;
+		case "conope":
+			List<Operadora> operadoras = operadoraCtrl.consultar();
+			request.setAttribute("operadoras", operadoras);
+			proxPagina = "operadora/consulta.jsp";
+			break;
 		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(proxPagina);
 		dispatcher.forward(request, response);
 
@@ -61,39 +85,77 @@ public class FrontControllerServlet extends HttpServlet {
 		this.getServletContext().removeAttribute("msgs");
 		String operacao = request.getParameter("op");
 		if (operacao == null) {
-		this.getServletContext().setAttribute("msgs",
-		new String[] {"Operação (op) não especificada na requisição!"});
-		response.sendRedirect(request.getHeader("Referer"));
-		return;
-	}
+			this.getServletContext().setAttribute("msgs",
+					new String[] { "Operação (op) não especificada na requisição!" });
+			response.sendRedirect(request.getHeader("Referer"));
+			return;
+		}
+		OperadoraController operadoraCtrl = new OperadoraController();
 		ContatoController contatoCtrl = new ContatoController();
 		Resultado resultado = null;
 		String paginaSucesso = "controller.do?op=conctt";
+		String paginaSucessoOpe = "controller.do?op=conope";
 		String paginaErro = "contato/cadastro.jsp";
+		String paginaErroOpe = "operadora/cadastro.jsp";
 		String proxPagina = null;
 		switch (operacao) {
 		case "cadctt":
-		resultado = contatoCtrl.cadastrar(request.getParameterMap());
-		if (!resultado.isErro()) {
-		proxPagina = paginaSucesso;
-		request.setAttribute("msgs", resultado.getMensagensSucesso());
-		} else {
-		request.setAttribute("contato", (Contato) resultado.getEntidade());
-		request.setAttribute("msgs", resultado.getMensagensErro());
-		proxPagina = paginaErro;
-		}
-		break;
+			resultado = contatoCtrl.cadastrar(request.getParameterMap());
+			if (!resultado.isErro()) {
+				proxPagina = paginaSucesso;
+				request.setAttribute("msgs", resultado.getMensagensSucesso());
+			} else {
+				request.setAttribute("contato", (Contato) resultado.getEntidade());
+				request.setAttribute("msgs", resultado.getMensagensErro());
+				proxPagina = paginaErro;
+			}
+
+			break;
+
+		case "cadope":
+			resultado = operadoraCtrl.cadastrar(request.getParameterMap());
+			if (!resultado.isErro()) {
+				proxPagina = paginaSucesso;
+				request.setAttribute("msgs", resultado.getMensagensSucesso());
+			} else {
+				request.setAttribute("operadora", (Operadora) resultado.getEntidade());
+				request.setAttribute("msgs", resultado.getMensagensErro());
+				proxPagina = paginaErroOpe;
+			}
+			break;
+			
+		case "edtope":
+			resultado = operadoraCtrl.cadastrar(request.getParameterMap());
+			if (!resultado.isErro()) {
+				
+				proxPagina = paginaSucessoOpe;
+				request.setAttribute("msgs", resultado.getMensagensSucesso());
+			} else {
+				request.setAttribute("operadora", (Operadora) resultado.getEntidade());
+				request.setAttribute("msgs", resultado.getMensagensErro());
+				proxPagina = paginaErro;
+			}
+			break;
+		case "edtctt":
+			resultado = contatoCtrl.cadastrar(request.getParameterMap());
+			if (!resultado.isErro()) {
+				proxPagina = paginaSucesso;
+				request.setAttribute("msgs", resultado.getMensagensSucesso());
+			} else {
+				request.setAttribute("contato", (Contato) resultado.getEntidade());
+				request.setAttribute("msgs", resultado.getMensagensErro());
+				proxPagina = paginaErro;
+			}
+			break;
 		default:
 			request.setAttribute("erro", "Operação não especificada no servlet!");
 			proxPagina = "../erro/erro.jsp";
-			}
-			if (resultado.isErro()) {
+		}
+		if (resultado.isErro()) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(proxPagina);
 			dispatcher.forward(request, response);
-			} else {
+		} else {
 			response.sendRedirect(proxPagina);
-			}
+		}
 	}
 }
-
-

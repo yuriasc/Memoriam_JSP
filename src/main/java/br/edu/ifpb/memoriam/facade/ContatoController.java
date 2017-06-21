@@ -24,6 +24,12 @@ public class ContatoController {
 		return contatos;
 	}
 
+	public Contato buscar(int id) {
+		ContatoDAO dao = new ContatoDAO(PersistenceUtil.getCurrentEntityManager());
+		return dao.find(id);
+
+	}
+
 	public Resultado cadastrar(Map<String, String[]> parametros) {
 		Resultado resultado = new Resultado();
 		if (isParametrosValidos(parametros)) {

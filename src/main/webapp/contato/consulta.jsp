@@ -34,7 +34,9 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<a href="contato/cadastro.jsp" class="form-control btn btn-primary">Novo</a>
+			<a href="contato/cadastro.jsp" class="form-control btn btn-primary">Novo Contato</a>
+			<a href="operadora/cadastro.jsp" class="form-control btn btn-primary">Nova Operadora</a>
+			<a href=${pageContext.request.contextPath}/controller.do?op=conope class="form-control btn btn-primary">Consultar e Alterar Operadora</a>
 		</div>
 	</div>
 </body>
