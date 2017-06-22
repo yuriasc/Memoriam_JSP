@@ -98,4 +98,26 @@ public class ContatoController {
 		}
 		return this.mensagensErro.isEmpty();
 	}
+
+	public Resultado remove(Map<String, String[]> parametros) {
+		Resultado resultado = new Resultado();
+		ContatoDAO dao = new ContatoDAO(PersistenceUtil.getCurrentEntityManager());
+		dao.beginTransaction();
+		String[] selecionadosform = parametros.get("del_selected");
+		try {
+			for (String s : selecionadosform) {
+				Contato c = dao.find(Integer.parseInt(s));
+				dao.delete(c);
+			}
+			resultado.setErro(false);
+			resultado.setMensagensErro(Collections.singletonList("Contatos removidos com sucesso"));
+		} catch (Exception exc) {
+			resultado.setEntidade(this.contato);
+			resultado.setErro(true);
+			resultado.setMensagensErro(this.mensagensErro);
+		}
+		dao.commit();
+
+		return resultado;
+	}
 }

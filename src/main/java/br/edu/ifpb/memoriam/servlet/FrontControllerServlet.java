@@ -111,6 +111,31 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 
 			break;
+			
+		case "deletectt":
+			resultado = contatoCtrl.remove(request.getParameterMap());
+			if(!resultado.isErro()) {
+				proxPagina= paginaSucesso;
+				request.setAttribute("msgs", resultado.getMensagensSucesso());
+			} else{
+				request.setAttribute("contato", (Contato) resultado.getEntidade());
+				request.setAttribute("msgs", resultado.getMensagensErro());
+				proxPagina= paginaErro;
+			}
+			
+			break;
+		case "deleteope":
+			resultado = operadoraCtrl.remove(request.getParameterMap());
+			if(!resultado.isErro()) {
+				proxPagina= paginaSucesso;
+				request.setAttribute("msgs", resultado.getMensagensSucesso());
+			} else{
+				request.setAttribute("operadora", (Operadora) resultado.getEntidade());
+				request.setAttribute("msgs", resultado.getMensagensErro());
+				proxPagina= paginaErro;
+			}
+			
+			break;
 
 		case "cadope":
 			resultado = operadoraCtrl.cadastrar(request.getParameterMap());

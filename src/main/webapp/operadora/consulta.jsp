@@ -30,16 +30,48 @@
 					<th>Nome</th>
 					<th>Prefixo</th>
 				</tr>
+				<form action="${pageContext.request.contextPath}/controller.do?op=deleteope" id="form_del" method="POST">
 				<c:forEach var="operadora" items="${operadoras}">
 					<tr align="left">
-						<td><input type="checkbox" /></td>
+						<td><input class="selections" name="del_selected" type="checkbox" value="${operadora.id}"/></td>
 						<td><a href="controller.do?op=edtope&id=${operadora.id}">${operadora.nome}</a></td>
 						<td>${operadora.prefixo}</td>
 					</tr>
 				</c:forEach>
+				</form>
 			</table>
+			<a class="form-control btn btn-danger btn_delete" style="display: none;">Apagar selecionados</a>
 			<a class="form-control btn btn-primary" href="${pageContext.request.contextPath}">Voltar</a>
 		</div>
 	</div>
+	<form id="form_oculto" action="" style="display: none;"></form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(
+			function() {
+
+				$(".selections").change(function() {
+					if ($('.selections:checkbox:checked').length > 0) {
+						$(".btn_delete").show();
+						$(".btn_novo").hide();
+					} else {
+						$(".btn_delete").hide();
+						$(".btn_novo").show();
+					}
+
+				});
+
+				$(".btn_delete").click(
+						function() {
+							selecionados = $('.selections:checkbox:checked');
+							if (confirm("Deseja realmente apagar "
+									+ selecionados.length + " operadora(s)?")) {
+								$("#form_del").submit();
+							}
+						});
+
+			});
+</script>
 </html>

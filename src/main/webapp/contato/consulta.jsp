@@ -25,19 +25,51 @@
 					<th>Telefone</th>
 					<th>Operadora</th>
 				</tr>
+				<form action="${pageContext.request.contextPath}/controller.do?op=deletectt" id="form_del" method="POST">
 				<c:forEach var="contato" items="${contatos}">
 					<tr align="left">
-						<td><input type="checkbox" /></td>
+						<td><input class="selections" name="del_selected" type="checkbox" value="${contato.id}"/></td>
 						<td><a href="controller.do?op=edtctt&id=${contato.id}">${contato.nome}</a></td>
 						<td>${contato.fone}</td>
 						<td>${contato.operadora.nome}</td>
 					</tr>
 				</c:forEach>
+				</form>
 			</table>
-			<a href="contato/cadastro.jsp" class="form-control btn btn-primary">Novo Contato</a>
-			<a href="operadora/cadastro.jsp" class="form-control btn btn-primary">Nova Operadora</a>
+			<a href="contato/cadastro.jsp" class="form-control btn btn-primary">Novo Contato</a> 
+			<a href="operadora/cadastro.jsp"class="form-control btn btn-primary">Nova Operadora</a>
 			<a href=${pageContext.request.contextPath}/controller.do?op=conope class="form-control btn btn-primary">Consultar e Alterar Operadora</a>
+			<a class="form-control btn btn-danger btn_delete" style="display: none;">Apagar selecionados</a>
 		</div>
 	</div>
+	<form id="form_oculto" action="" style="display: none;"></form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(
+			function() {
+
+				$(".selections").change(function() {
+					if ($('.selections:checkbox:checked').length > 0) {
+						$(".btn_delete").show();
+						$(".btn_novo").hide();
+					} else {
+						$(".btn_delete").hide();
+						$(".btn_novo").show();
+					}
+
+				});
+
+				$(".btn_delete").click(
+						function() {
+							selecionados = $('.selections:checkbox:checked');
+							if (confirm("Deseja realmente apagar "
+									+ selecionados.length + " contato(s)?")) {
+								$("#form_del").submit();
+							}
+						});
+
+			});
+</script>
 </html>

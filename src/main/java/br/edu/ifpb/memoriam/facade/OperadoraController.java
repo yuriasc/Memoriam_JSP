@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import br.edu.ifpb.memoriam.dao.OperadoraDAO;
 import br.edu.ifpb.memoriam.dao.PersistenceUtil;
 import br.edu.ifpb.memoriam.entity.Operadora;
@@ -74,5 +73,26 @@ public class OperadoraController {
 	public Operadora buscar(int id){
 		OperadoraDAO dao = new OperadoraDAO(PersistenceUtil.getCurrentEntityManager());
 		return dao.find(id);
+	}
+	public Resultado remove(Map<String, String[]> parametros) {
+		Resultado resultado = new Resultado();
+		OperadoraDAO dao = new OperadoraDAO(PersistenceUtil.getCurrentEntityManager());
+		dao.beginTransaction();
+		String[] selecionadosform = parametros.get("del_selected");
+		try {
+			for (String s : selecionadosform) {
+				Operadora o = dao.find(Integer.parseInt(s));
+				dao.delete(o);
+			}
+			resultado.setErro(false);
+			resultado.setMensagensErro(Collections.singletonList("Operdadora(s) removidos com sucesso"));
+		} catch (Exception exc) {
+			resultado.setEntidade(this.operadora);
+			resultado.setErro(true);
+			resultado.setMensagensErro(this.mensagensErro);
+		}
+		dao.commit();
+
+		return resultado;
 	}
 }
