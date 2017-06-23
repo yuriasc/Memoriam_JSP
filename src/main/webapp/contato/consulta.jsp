@@ -53,6 +53,8 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/dist/sweetalert.css">
 <script>
 	$(document).ready(
 			function() {
@@ -71,12 +73,30 @@
 				$(".btn_delete").click(
 						function() {
 							selecionados = $('.selections:checkbox:checked');
-							if (confirm("Deseja realmente apagar "
+							swal({
+								  title: "Você tem certeza?",
+								  text: "Você não sera capaz de recuperar esses dados!",
+								  type: "warning",
+								  showCancelButton: true,
+								  confirmButtonColor: "#DD6B55",
+								  confirmButtonText: "Sim, delete!",
+								  cancelButtonText: "Não, cancele!",
+								  closeOnConfirm: false,
+								  closeOnCancel: false
+								},
+								function(isConfirm){
+									  if (isConfirm) {
+									    swal("Deletado!", "Dados deletados com sucesso.", "success");
+									    $("#form_del").submit();
+									  } else {
+									    swal("Cancelado", "Voce cancelou a operação :)", "error");
+									  }
+									});
+							/* if (confirm("Deseja realmente apagar "
 									+ selecionados.length + " contato(s)?")) {
 								$("#form_del").submit();
-							}
+							} */
 						});
-
 			});
 </script>
 </html>
