@@ -148,30 +148,6 @@ public class FrontControllerServlet extends HttpServlet {
 				proxPagina = paginaErroOpe;
 			}
 			break;
-			
-		case "edtope":
-			resultado = operadoraCtrl.cadastrar(request.getParameterMap());
-			if (!resultado.isErro()) {
-				
-				proxPagina = paginaSucessoOpe;
-				request.setAttribute("msgs", resultado.getMensagensSucesso());
-			} else {
-				request.setAttribute("operadora", (Operadora) resultado.getEntidade());
-				request.setAttribute("msgs", resultado.getMensagensErro());
-				proxPagina = paginaErro;
-			}
-			break;
-		case "edtctt":
-			resultado = contatoCtrl.cadastrar(request.getParameterMap());
-			if (!resultado.isErro()) {
-				proxPagina = paginaSucesso;
-				request.setAttribute("msgs", resultado.getMensagensSucesso());
-			} else {
-				request.setAttribute("contato", (Contato) resultado.getEntidade());
-				request.setAttribute("msgs", resultado.getMensagensErro());
-				proxPagina = paginaErro;
-			}
-			break;
 		default:
 			request.setAttribute("erro", "Operação não especificada no servlet!");
 			proxPagina = "../erro/erro.jsp";

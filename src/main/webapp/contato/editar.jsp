@@ -35,7 +35,7 @@
 
 			<form action="${pageContext.request.contextPath}/controller.do"
 				method="post" class="form-horizontal">
-				<input type="hidden" name="op" value="edtctt"> <input
+				<input type="hidden" name="op" value="cadctt"> <input
 					type="hidden" name="id" value="${contato.id}"> <input
 					id="nome" value="${contato.nome}" name="nome" type="text"
 					class="form-control" placeholder="Nome" /> <input id="fone"

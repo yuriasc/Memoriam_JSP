@@ -35,7 +35,7 @@
 
 			<form action="${pageContext.request.contextPath}/controller.do"
 				method="post" class="form-horizontal">
-				<input type="hidden" name="op" value="edtope"> 
+				<input type="hidden" name="op" value="cadope"> 
 				<input type="hidden" name="id" value="${operadora.id}">
 				<input id="nome" value="${operadora.nome}" name="nome" type="text" class="form-control"  /> 
 				<input id="prefixo" value="${operadora.prefixo}" name="prefixo" type="text" class="form-control"  />				
