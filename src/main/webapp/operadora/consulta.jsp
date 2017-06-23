@@ -21,10 +21,12 @@
 			<nav class="navbar navbar-default">
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul class="nav navbar-nav">
+			        <li><a href="${pageContext.request.contextPath}">Contatos</a></li>
+			        <li><a href="${pageContext.request.contextPath}/controller.do?op=conope">Operadoras</a></li>
 			      </ul>
 			     </div>
 			</nav>
-			<table class="table table-striped">
+			<table class="table table-striped table-bordered">
 				<tr align="left">
 					<th></th>
 					<th>Nome</th>
@@ -40,8 +42,9 @@
 				</c:forEach>
 				</form>
 			</table>
-			<a class="form-control btn btn-danger btn_delete" style="display: none;">Apagar selecionados</a>
-			<a class="form-control btn btn-primary" href="${pageContext.request.contextPath}">Voltar</a>
+			<a href="operadora/cadastro.jsp"class="form-control btn btn-primary" style= "width:350px;">Nova Operadora</a><br>
+			<a class="form-control btn btn-danger btn_delete" style="display: none;width:350px">Apagar selecionados</a>
+			<%-- <a class="form-control btn btn-primary" href="${pageContext.request.contextPath}">Voltar</a> --%>
 		</div>
 	</div>
 	<form id="form_oculto" action="" style="display: none;"></form>

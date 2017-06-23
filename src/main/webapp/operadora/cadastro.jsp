@@ -35,10 +35,10 @@
 				method="POST" class="form-horizontal">
 				<input type="hidden" name="op" value="cadope">
 				<input id="nome" value="${operadora.nome}" name="nome" type="text" class="form-control" placeholder="Nome" /> 
-				<input type="text" name="prefixo" value="${operadora.prefixo}" class="form-control" placeholder="Prefixo">
-				<input type="submit" class="form-control btn btn-primary" value="Salvar">
+				<input type="text" name="prefixo" value="${operadora.prefixo}" class="form-control" placeholder="Prefixo"><br>
+				<input type="submit" class="form-control btn btn-primary" style= "width:350px;" value="Salvar">
 			</form>
-			<a class="form-control btn btn-success" href="${pageContext.request.contextPath}">Voltar</a>
+			<a class="form-control btn btn-success" style= "width:350px;" href="${pageContext.request.contextPath} ">Voltar</a>
 		</div>
 	</div>
 	<c:set var="endofconversation" value="true" scope="request" />

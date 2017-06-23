@@ -1,27 +1,65 @@
 package br.edu.ifpb.memoriam.entity;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 
 @Entity
+
+
 @Table(name="TB_OPERADORA")
 public class Operadora {
-	@Id
+	//
+	@Id	
+	//@Cascade(value=org.hibernate.annotations.CascadeType.ALL)
 	@Column(name="ID_OPERADORA")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	
+//	
+//	public List<Contato> getContato() {
+//		return contato;
+//	}
+//
+
+//	}
+
 	private Integer id;
 	
+	@OneToMany(mappedBy="operadora",cascade=CascadeType.ALL)
+	private List<Contato> contato;
+//	public void setContato(List<Contato> contato) {
+//	this.contato = contato;
+	//
+	
+	public List<Contato> getContato() {
+		return contato;
+	}
+
+	public void setContato(List<Contato> contato) {
+		this.contato = contato;
+	}
+
 	@Column(name="NM_OPERADORA")
 	private String nome;
 	
 	@Column(name="NU_PREFIXO")
 	private Integer prefixo;
-
+	
+	
 	public Integer getId() {
 		return id;
 	}

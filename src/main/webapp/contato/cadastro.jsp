@@ -55,10 +55,10 @@
 					</c:forEach>
 				</select> <input id="dataaniv" value="${dataAniv}" name="dataaniv"
 					class="form-control" type="date"
-					placeholder="Data de criação (dd/mm/aaaa)" /> <input type="submit"
-					class="form-control btn btn-primary" value="Salvar">
+					placeholder="Data de criação (dd/mm/aaaa)" /><br> 
+					<input type="submit" class="form-control btn btn-primary" style= "width:350px;" value="Salvar">
 			</form>
-			<a class="form-control btn btn-success" href="${pageContext.request.contextPath}">Voltar</a>
+			<a class="form-control btn btn-success" style= "width:350px;"  href="${pageContext.request.contextPath} ">Voltar</a>
 		</div>
 	</div>
 	<c:set var="endofconversation" value="true" scope="request" />

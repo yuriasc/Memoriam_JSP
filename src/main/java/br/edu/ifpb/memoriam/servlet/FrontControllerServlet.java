@@ -140,7 +140,7 @@ public class FrontControllerServlet extends HttpServlet {
 		case "cadope":
 			resultado = operadoraCtrl.cadastrar(request.getParameterMap());
 			if (!resultado.isErro()) {
-				proxPagina = paginaSucesso;
+				proxPagina = paginaSucessoOpe;
 				request.setAttribute("msgs", resultado.getMensagensSucesso());
 			} else {
 				request.setAttribute("operadora", (Operadora) resultado.getEntidade());

@@ -17,8 +17,15 @@
 			<h2>
 				Memori<i class="glyphicon glyphicon-phone"></i>m.
 			</h2>
-			<table>
-
+			<nav class="navbar navbar-default">
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li><a href="${pageContext.request.contextPath}">Contatos</a></li>
+			        <li><a href="${pageContext.request.contextPath}/controller.do?op=conope">Operadoras</a></li>
+			      </ul>
+			     </div>
+			</nav>
+			<table class="table table-striped table-bordered">
 				<tr align="left">
 					<th></th>
 					<th style="width: 30%">Nome</th>
@@ -36,10 +43,10 @@
 				</c:forEach>
 				</form>
 			</table>
-			<a href="contato/cadastro.jsp" class="form-control btn btn-primary">Novo Contato</a> 
-			<a href="operadora/cadastro.jsp"class="form-control btn btn-primary">Nova Operadora</a>
-			<a href=${pageContext.request.contextPath}/controller.do?op=conope class="form-control btn btn-primary">Consultar e Alterar Operadora</a>
-			<a class="form-control btn btn-danger btn_delete" style="display: none;">Apagar selecionados</a>
+			<a href="contato/cadastro.jsp" class="form-control btn btn-primary"  style= "width:350px;" >Novo Contato</a><br> 
+			<!-- <a href="operadora/cadastro.jsp"class="form-control btn btn-primary">Nova Operadora</a> -->
+			<!-- <a href=${pageContext.request.contextPath}/controller.do?op=conope class="form-control btn btn-primary">Consultar e Alterar Operadora</a> -->
+			<a class="form-control btn btn-danger btn_delete" style="display: none; width:350px">Apagar selecionados</a>
 		</div>
 	</div>
 	<form id="form_oculto" action="" style="display: none;"></form>
